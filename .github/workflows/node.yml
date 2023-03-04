@@ -30,6 +30,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm run start && git add database/ && git commit -m "database update" && git push https://$TOKEN@github.com/noyafx/database.git
+    - run: npm ci && npm run start && git add database/ && git commit -m "database update" && git push https://$TOKEN@github.com/noyafx/database.git
       env:
         TOKEN: ${{ secrets.GH_PAT }}
