@@ -44,4 +44,4 @@ jobs:
         TOKEN: ${{ secrets.GH_PAT }}
     - name: Cache save
       if: ${{ always() }}
-      run: cd database && git add . && git commit -m "database update" && git push origin
+      run: git rm --cached database -f && cd database && git add . && git commit -m "database update" && git push origin
