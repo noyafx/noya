@@ -5,6 +5,12 @@ name: Node.js CI
 
 on:
   workflow_dispatch:
+    inputs:
+      npm-script:
+        description: npm script to run(*´ω｀*)
+        type: string
+        required: true
+        default: 'start'
 
 permissions:
   contents: write 
@@ -32,8 +38,9 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - name: Run script
-      run: npm i && npm run start
+      run: npm i && npm run $SCRIPT
       env:
+        SCRIPT: ${{ inputs.npm-script }}
         TOKEN: ${{ secrets.GH_PAT }}
     - name: Cache save
       if: ${{ always() }}
