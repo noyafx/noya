@@ -28,6 +28,7 @@ jobs:
       run: |
         git config --global user.name "noyafx"
         git config --global user.email "111561391+noyafx@users.noreply.github.com"
+        git submodule init && git submodule update
         cd database && git remote set-url origin https://noyafx:$TOKEN@github.com/noyafx/database.git && cd ..
       env:
         TOKEN: ${{ secrets.GH_PAT }}
