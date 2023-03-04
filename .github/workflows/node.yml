@@ -32,6 +32,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci && npm run start && git add database/ && git commit -m "database update" && git push origin
+    - run: npm ci && npm run start && git add database/ && git commit -m "database update" && git push --set-upstream origin main
       env:
         TOKEN: ${{ secrets.GH_PAT }}
