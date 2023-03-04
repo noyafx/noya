@@ -28,7 +28,6 @@ jobs:
       run: |
         git config --global user.name "noyafx"
         git config --global user.email "111561391+noyafx@users.noreply.github.com"
-        git submodule update
       env:
         TOKEN: ${{ secrets.GH_PAT }}
     - name: Use Node.js ${{ matrix.node-version }}
@@ -43,4 +42,4 @@ jobs:
         TOKEN: ${{ secrets.GH_PAT }}
     - name: Cache save
       if: ${{ always() }}
-      run: git rm --cached database -f && cd database && git remote set-url origin https://noyafx:$TOKEN@github.com/noyafx/database.git && git add . && git commit -m "database update" && git push origin
+      run: cd database && git remote set-url origin https://noyafx:$TOKEN@github.com/noyafx/database.git && git add . && git commit -m "database update" && git push origin
