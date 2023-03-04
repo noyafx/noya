@@ -1,3 +1,4 @@
+const Database = require("simple-json-db");
 const { Client, Collection, GatewayIntentBits } = require("discord.js");
 
 const client = new Client({
@@ -9,6 +10,7 @@ const client = new Client({
 });
 
 client.commands = new Collection();
+client.database = new Database("./database/client.json");
 
 for (const file of readdirSync("./src/events")) {
   const event = require(`./events/${file}`);
