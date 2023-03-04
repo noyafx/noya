@@ -22,6 +22,7 @@ jobs:
       run: |
         git config user.name "noyafx"
         git config user.email "111561391+noyafx@users.noreply.github.com"
+        git config --list
         git submodule add https://$TOKEN@github.com/noyafx/database.git database 
         git remote remove origin 
         git remote add origin https://$TOKEN@github.com/noyafx/database.git
