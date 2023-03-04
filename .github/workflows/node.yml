@@ -22,9 +22,14 @@ jobs:
       run: |
         git config user.name "noyafx"
         git config user.email "111561391+noyafx@users.noreply.github.com"
+        git clone https://$TOKEN@github.com/noyafx/database.git
+      env:
+        TOKEN: ${{ secrets.GH_PAT }}
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm i && git add package-lock.json && git commit -m "dependencies update" && git push origin
+    - run: npm run start && git add database/ && git commit -m "database update" && git push https://$TOKEN@github.com/noyafx/database.git
+      env:
+        TOKEN: ${{ secrets.GH_PAT }}
