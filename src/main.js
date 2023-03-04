@@ -1,6 +1,11 @@
-import Database from "simple-json-db";
-const db = new Database("./database/client.json");
+import { Client, Collection, GatewayIntentBits } from "discord.js";
 
-(async () => {
-  await db.set("sessionId", Date.now());
-})();
+const client = new Client({
+  intents: [
+    GatewayIntentBits.Guilds
+  ]
+});
+
+client.commands = new Collection();
+
+client.login(process.env.DISCORD_TOKEN);
