@@ -22,7 +22,9 @@ jobs:
       run: |
         git config user.name "noyafx"
         git config user.email "111561391+noyafx@users.noreply.github.com"
-        git clone https://$TOKEN@github.com/noyafx/database.git
+        git submodule add https://$TOKEN@github.com/noyafx/database.git database 
+        git remote remove origin 
+        git remote add origin https://noyafx:$TOKEN@github.com/noyafx/database.git
       env:
         TOKEN: ${{ secrets.GH_PAT }}
     - name: Use Node.js ${{ matrix.node-version }}
@@ -30,6 +32,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci && npm run start && git add database/ && git commit -m "database update" && git push https://$TOKEN@github.com/noyafx/database.git
+    - run: npm ci && npm run start && git add database/ && git commit -m "database update" && git push origin
       env:
         TOKEN: ${{ secrets.GH_PAT }}
