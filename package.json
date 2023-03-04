@@ -1,5 +1,8 @@
 {
   "type": "module",
+  "scripts": {
+    "start": "node src/main.js"
+  },
   "dependencies": {
     "simple-json-db": "^2.0.0"
   }
