@@ -1,0 +1,6 @@
+{
+  "type": "module",
+  "dependencies": {
+    "simple-json-db": "^2.0.0"
+  }
+}
