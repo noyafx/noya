@@ -5,6 +5,7 @@
     "start": "node src/main.js"
   },
   "dependencies": {
+    "discord.js": "^14.7.1",
     "simple-json-db": "^2.0.0"
   }
 }
