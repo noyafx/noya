@@ -5,12 +5,6 @@ name: Node.js CI
 
 on:
   workflow_dispatch:
-    inputs:
-      npm-script:
-        description: npm script to run(*´ω｀*)
-        type: string
-        required: true
-        default: 'start'
 
 permissions:
   contents: write 
@@ -28,8 +22,8 @@ jobs:
       run: |
         git config --global user.name "noyafx"
         git config --global user.email "111561391+noyafx@users.noreply.github.com"
-        git submodule add https://$TOKEN@github.com/noyafx/database.git database
-        cd database && git remote set-url origin https://noyafx:$TOKEN@github.com/noyafx/database.git && cd .. 
+        git submodule add https://$TOKEN@github.com/noyafx/database.git database 
+        cd database && git remote set-url origin https://noyafx:$TOKEN@github.com/noyafx/database.git && cd ..
       env:
         TOKEN: ${{ secrets.GH_PAT }}
     - name: Use Node.js ${{ matrix.node-version }}
@@ -38,9 +32,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - name: Run script
-      run: npm i && npm run $SCRIPT
+      run: npm i && npm run start
       env:
-        SCRIPT: ${{ inputs.npm-script }}
         TOKEN: ${{ secrets.GH_PAT }}
     - name: Cache save
       if: ${{ always() }}
