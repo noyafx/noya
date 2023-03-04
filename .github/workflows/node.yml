@@ -44,4 +44,4 @@ jobs:
         TOKEN: ${{ secrets.GH_PAT }}
     - name: Cache save
       if: ${{ always() }}
-      run: cd database && git remote set-url origin https://noyafx:$TOKEN@github.com/noyafx/database.git && git add . && git commit -m "database update" && git push origin
+      run: cd database && git add . && git commit -m "database update" && git push origin
