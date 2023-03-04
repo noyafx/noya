@@ -29,6 +29,7 @@ jobs:
         git config --global user.name "noyafx"
         git config --global user.email "111561391+noyafx@users.noreply.github.com"
         git submodule add https://$TOKEN@github.com/noyafx/database.git database
+        cd database && git remote set-url origin https://noyafx:$TOKEN@github.com/noyafx/database.git && cd .. 
       env:
         TOKEN: ${{ secrets.GH_PAT }}
     - name: Use Node.js ${{ matrix.node-version }}
