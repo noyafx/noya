@@ -7,7 +7,12 @@ const client = new Client({
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMessages,
     GatewayIntentBits.MessageContent
-  ]
+  ],
+  presence: {
+    activities: [
+      { name: "GitHub🐈‍⬛" }
+    ]
+  }
 });
 
 client.commands = new Collection();
@@ -18,3 +23,4 @@ for (const file of readdirSync("./src/events")) {
 };
 
 client.login(process.env.DISCORD_TOKEN);
+setTimeout(() => process.exit(0), 4 * 60 * 60 * 1000);
