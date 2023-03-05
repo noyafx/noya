@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "setup": "git add package-lock.json && git commit -m \"dependencies update\" && git push origin",
+    "setup": "git rm database && git add package-lock.json && git commit -m \"dependencies update\" && git push origin",
     "start": "node src/main.js"
   },
   "dependencies": {
