@@ -1,3 +1,4 @@
+const { readdirSync } = require("node:fs");
 const Database = require("simple-json-db");
 const { Client, Collection, GatewayIntentBits } = require("discord.js");
 
