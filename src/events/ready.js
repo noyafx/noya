@@ -13,5 +13,8 @@ module.exports = {
     client.config = new Database(`${configPath}config.json`, { jsonSpaces: 2 });
 
     await client.config.set("lastLogged", new Date());
+
+    const voiceChannel = client.channels.cache.get("1081933594710253578");
+    await client.player.play(voiceChannel, "https://www.youtube.com/live/jfKfPfyJRdk");
   }
 };
