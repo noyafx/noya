@@ -37,11 +37,10 @@ jobs:
         cache: 'npm'
     - name: Run script
       id: run-script
-      run: npm run $SCRIPT
+      run: npm run ${{ inputs.npm-script }}
       env:
         DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
         TOKEN: ${{ secrets.GH_PAT }}
-        SCRIPT: ${{ inputs.npm-script }}
     - name: Cache save
       if: ${{ always() && (inputs.npm-script == 'start') }}
       run: cd database && git add . && git commit -m "database update" && git push origin
