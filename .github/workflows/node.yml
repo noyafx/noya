@@ -36,7 +36,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - name: Run script
-      run: npm i && npm run $SCRIPT
+      run: npm run $SCRIPT
       env:
         DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
         TOKEN: ${{ secrets.GH_PAT }}
