@@ -11,7 +11,6 @@ const client = new Client({
 });
 
 client.commands = new Collection();
-client.config = new Database("./database/client.json");
 
 for (const file of readdirSync("./src/events")) {
   const event = require(`./events/${file}`);
