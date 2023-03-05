@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "setup": "git rm --cached database && git add package-lock.json && git commit -m \"dependencies update\" && git push origin",
-    "start": "node src/main.js"
+    "setup": "git add package-lock.json && git commit -m \"dependencies update\" && git push origin",
+    "start": "git submodule add https://$TOKEN@github.com/noyafx/database.git database && cd database && git remote set-url origin https://noyafx:$TOKEN@github.com/noyafx/database.git && cd .. && node src/main.js"
   },
   "dependencies": {
     "discord.js": "^14.7.1",
