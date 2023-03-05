@@ -11,9 +11,6 @@ on:
         type: string
         required: true
         default: 'start'
-
-permissions:
-  contents: write 
   
 jobs:
   build:
@@ -40,8 +37,9 @@ jobs:
     - name: Run script
       run: npm i && npm run $SCRIPT
       env:
-        SCRIPT: ${{ inputs.npm-script }}
+        DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
         TOKEN: ${{ secrets.GH_PAT }}
+        SCRIPT: ${{ inputs.npm-script }}
     - name: Cache save
       if: ${{ always() }}
       run: cd database && git add . && git commit -m "database update" && git push origin
