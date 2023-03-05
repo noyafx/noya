@@ -37,15 +37,11 @@ jobs:
         cache: 'npm'
     - name: Run script
       id: run-script
-      run: npm run ${{ inputs.npm-script }}
+      run: npm run $SCRIPT
       env:
         DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
         TOKEN: ${{ secrets.GH_PAT }}
+        SCRIPT: ${{ inputs.npm-script }}
     - name: Cache save
       if: ${{ always() && (inputs.npm-script == 'start') }}
       run: cd database && git add . && git commit -m "database update" && git push origin
-    - name: Continue workflow
-      if: ${{ (steps.run-script.conclusion == 'success') && (inputs.npm-script == 'start') }}
-      run: curl -L -X POST -H "Accept: application/vnd.github+json" -H "Authorization: Bearer $TOKEN" -H "X-GitHub-Api-Version: 2022-11-28" https://api.github.com/repos/noyafx/noya/actions/workflows/node.yml/dispatches -d '{"ref":"main","inputs":{}}'
-      env:
-        TOKEN: ${{ secrets.GH_PAT }}
