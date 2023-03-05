@@ -1,3 +1,4 @@
+const { mkdirp } = require("mkdirp");
 const Database = require("simple-json-db");
 
 module.exports = {
@@ -6,7 +7,10 @@ module.exports = {
   async execute(client) {
     await client.application.fetch();
     console.log(`* Connected as ${client.user.tag}`);
-    client.config = new Database(`./database/clients/${client.application.id}/config.json`, { jsonSpaces: 2 });
+
+    const configPath = `./database/clients/${client.application.id}/`;
+    await mkdirp(configPath);
+    client.config = new Database(`${configPath}config.json`, { jsonSpaces: 2 });
 
     await client.config.set("lastLogged", new Date());
   }
