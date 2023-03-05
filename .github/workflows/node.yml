@@ -11,6 +11,9 @@ on:
         type: string
         required: true
         default: 'start'
+
+permissions:
+  contents: write
   
 jobs:
   build:
