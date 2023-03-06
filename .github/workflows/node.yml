@@ -44,6 +44,7 @@ jobs:
       run: npm run ${{ inputs.npm-script }}
       env:
         DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
+        OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
         TOKEN: ${{ secrets.GH_PAT }}
     - name: Cache save
       if: ${{ always() && (inputs.npm-script == 'start') }}
