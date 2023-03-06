@@ -23,7 +23,8 @@ module.exports = {
       adapterCreator: vc.guild.voiceAdapterCreator
     });
     const stream = ytdl("https://www.youtube.com/watch?v=jfKfPfyJRdk", {
-      filter: "audioonly"
+      filter: "audioonly",
+      opusEncoded: true
     });
     const resource = createAudioResource(stream, {
       inputType: StreamType.Opus,
