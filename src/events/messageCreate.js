@@ -11,9 +11,8 @@ module.exports = {
         if (message.client.openai.usableAt > Date.now()) return;
         message.client.openai.usableAt = Date.now() + 1000;
         const { data: { choices } } = await message.client.openai.createCompletion({
-          model: "text-davinci-003",
-          prompt: `You: ${message.content}\nFriend:\n,
-          stop: ["You:"]
+          model: "text-davinci-002",
+          prompt: message.content
         });
         try {
           await message.reply({
