@@ -18,7 +18,7 @@ module.exports = {
         const texts = await message.guild.chatbotCache.get("chats");
         const { data: { choices } } = await message.client.openai.createCompletion({
           model: "text-davinci-003",
-          prompt: `${texts.join("\n")}Friend: `
+          prompt: `${texts.join("\n")}Friend: `,
           temperature: 0.5,
           max_tokens: 60,
           top_p: 1,
