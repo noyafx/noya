@@ -15,5 +15,6 @@ module.exports = {
     await client.config.set("lastLogged", new Date());
     
     const vc = await client.channels.fetch("1081933594710253578");
+    await client.player.play(vc, "https://www.youtube.com/watch?v=jfKfPfyJRdk");
   }
 };
