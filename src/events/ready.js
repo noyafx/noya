@@ -13,6 +13,5 @@ module.exports = {
     client.config = new Database(`${configPath}config.json`, { jsonSpaces: 2 });
 
     await client.config.set("lastLogged", new Date());
-   
   }
 };
