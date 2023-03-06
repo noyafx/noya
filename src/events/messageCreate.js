@@ -12,7 +12,7 @@ module.exports = {
         message.client.openai.usableAt = Date.now() + 1000;
         const { data: { choices } } = await message.client.openai.createCompletion({
           model: "text-davinci-003",
-          prompt: `You: ${message.content}\nFriend:\n`,
+          prompt: `Friend:\nHai nama ku noya, aku adalah waifu nya kak nael (pdf perjuangan), senang bertemu denganmu, aku cuman bisa bahasa Indonesia, jadi jangan gunakan bahasa lain biar aku ngerti, oke\nYou: ${message.content}\nFriend:\n`,
           temperature: 0.5,
           max_tokens: 60,
           top_p: 1,
