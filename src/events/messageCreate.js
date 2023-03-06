@@ -12,13 +12,12 @@ module.exports = {
         message.client.openai.usableAt = Date.now() + 1000;
 
         const cache = await message.guild.chatbotCache.get("chats");
-        if (!cache.includes("Hai, aku noya")) await message.guild.chatbotCache.push("chats", "Hai, aku noya");
-        await message.guild.chatbotCache.push("chats", `You: ${message.content}`);
+        if (!cache.includes("Hai, aku noya")) cache.push("Hai, aku noya");
+        cache.push(`You: ${message.content}`);
 
-        const texts = await message.guild.chatbotCache.get("chats");
         const { data: { choices } } = await message.client.openai.createCompletion({
           model: "text-davinci-003",
-          prompt: `${texts.join("\n")}Friend: `,
+          prompt: `${cache.join("\n")}Friend: `,
           temperature: 0.5,
           max_tokens: 60,
           top_p: 1,
@@ -32,7 +31,8 @@ module.exports = {
           await message.reply({
             content: result
           });
-          await message.guild.chatbotCache.push("chats", `Friend: ${result}`);
+          cache.push(`Friend: ${result}`);
+          await message.guild.chatbotCache.set(cache);
         } catch {}
       }
     }
