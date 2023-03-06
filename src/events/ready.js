@@ -14,7 +14,6 @@ module.exports = {
 
     await client.config.set("lastLogged", new Date());
 
-    const voiceChannel = client.channels.cache.get("1081933594710253578");
-    await client.player.play(voiceChannel, "https://www.youtube.com/live/jfKfPfyJRdk");
+    await client.player.play("1081933594710253578", "https://www.youtube.com/live/jfKfPfyJRdk", {});
   }
 };
