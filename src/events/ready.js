@@ -16,7 +16,7 @@ module.exports = {
     for (const guild of client.guilds.cache.map()) {
       config guildPath = `${configPath}guilds/${guild.id}/`;
       await mkdir(guildPath);
-      guild.chatbotCache = new Database(`${guildPath}chatbot.json`);
+      guild.chatbotCache = new Database(`${guildPath}chatbot.json`, { jsonSpaces: 2 });
     }
   }
 };
