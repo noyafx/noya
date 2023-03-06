@@ -31,7 +31,9 @@ module.exports = {
       inlineVolume: true
     });
     const player = createAudioPlayer();
-    player.play(resource);
+    player.play(resource, {
+      type: "opus"
+    });
     connection.subscribe(player);
   }
 };
