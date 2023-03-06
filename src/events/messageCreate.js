@@ -7,9 +7,19 @@ module.exports = {
       const args = message.content.slice(prefix.length).trim().split(/ +/);
       const commandName = args.shift();
     } else {
-      if (message.mentions.has(message.client.user.id, { ignoreEveryone: true, ignoreRoles: true })) await message.reply({
-        content: "naon?"
-      });
+      if (message.content && (message.channelId === "1082276400804929547")) {
+        if (message.client.openai.usableAt > Date.now()) return;
+        message.client.openai.usableAt = Date.now() + 1000;
+        const { data: { choices } } = await message.client.openai.createCompletion({
+          model: "text-davinci-002",
+          prompt: message.content
+        });
+        try {
+          await message.reply({
+            content: choices[Math.floor(Math.random() * choices.length)]
+          });
+        } catch {}
+      }
     }
   }
 };
