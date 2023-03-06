@@ -19,7 +19,7 @@ module.exports = {
 
         const { data: { choices } } = await message.client.openai.createCompletion({
           model: "text-davinci-003",
-          prompt: prompt.push(`You: ${message.content}\nFriend:`).join("\n")
+          prompt: prompt.push(`You: ${message.content}\nFriend:`).join("\n"),
           temperature: 0.5,
           max_tokens: 60,
           top_p: 1,
