@@ -1,4 +1,4 @@
-const { Player } = require("discord-player");
+const { Configuration, OpenAIApi } = require("openai");
 const { readdirSync } = require("node:fs");
 const { Client, Collection, GatewayIntentBits } = require("discord.js");
 
@@ -6,8 +6,7 @@ const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
     GatewayIntentBits.GuildMessages,
-    GatewayIntentBits.MessageContent,
-    GatewayIntentBits.GuildVoiceStates
+    GatewayIntentBits.MessageContent
   ],
   presence: {
     activities: [
@@ -17,7 +16,7 @@ const client = new Client({
 });
 
 client.commands = new Collection();
-client.player = new Player(client);
+client.openai = new OpenAIApi(new Configuration({ apiKey: process.env.OPENAI_KEY }));
 
 for (const file of readdirSync("./src/events")) {
   const event = require(`./events/${file}`);
