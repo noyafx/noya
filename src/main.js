@@ -1,5 +1,4 @@
-const { DisTube } = require("distube");
-const { YtDlpPlugin } = require("@distube/yt-dlp");
+const { Player } = require("discord-player");
 const { readdirSync } = require("node:fs");
 const { Client, Collection, GatewayIntentBits } = require("discord.js");
 
@@ -18,12 +17,7 @@ const client = new Client({
 });
 
 client.commands = new Collection();
-client.player = new DisTube(client, {
-  leaveOnEmpty: false,
-  plugins: [
-    new YtDlpPlugin({ update: false })
-  ]
-});
+client.player = new Player(client);
 
 for (const file of readdirSync("./src/events")) {
   const event = require(`./events/${file}`);
