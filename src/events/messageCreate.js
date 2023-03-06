@@ -16,7 +16,7 @@ module.exports = {
         });
         try {
           await message.reply({
-            content: choices[Math.floor(Math.random() * choices.length)]
+            content: choices[Math.floor(Math.random() * choices.length)].text
           });
         } catch {}
       }
