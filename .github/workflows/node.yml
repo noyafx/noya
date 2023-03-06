@@ -11,6 +11,9 @@ on:
         type: string
         required: true
         default: 'start'
+  push:
+    paths:
+      - 'package.json'
 
 permissions:
   contents: write
