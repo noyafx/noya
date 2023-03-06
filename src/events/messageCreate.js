@@ -36,7 +36,7 @@ module.exports = {
           });
           prompt.push(`You: ${message.content}`);
           prompt.push(`Friend: ${result}`);
-          await cache.set(prompt);
+          await message.guild.chatbotCache.set("chats", prompt);
         } catch {}
       }
     }
