@@ -10,9 +10,16 @@ module.exports = {
       if (message.content && (message.channelId === "1082276400804929547")) {
         if (message.client.openai.usableAt > Date.now()) return;
         message.client.openai.usableAt = Date.now() + 1000;
+
+        const cache = await message.guild.chatbotCache.get("chats");
+        if (!cache) await message.guild.chatbotCache.set("chats", []);
+        if (cache.length >= 25) cache.shift();
+
+        const prompt = [`Friend: Hai nama ku noya, aku adalah waifu nya kak nael (pdf perjuangan), senang bertemu denganmu, aku cuman bisa bahasa Indonesia, jadi jangan gunakan bahasa lain biar aku ngerti, oke`].concat(cache);
+
         const { data: { choices } } = await message.client.openai.createCompletion({
           model: "text-davinci-003",
-          prompt: `Friend: Hai nama ku noya, aku adalah waifu nya kak nael (pdf perjuangan), senang bertemu denganmu, aku cuman bisa bahasa Indonesia, jadi jangan gunakan bahasa lain biar aku ngerti, oke\nYou: ${message.content}\nFriend:\n`,
+          prompt: prompt.push(`You: ${message.content}\nFriend:`).join("\n")
           temperature: 0.5,
           max_tokens: 60,
           top_p: 1,
@@ -20,10 +27,15 @@ module.exports = {
           presence_penalty: 0,
           stop: ["You:"]
         });
+
         try {
+          const result = choices[Math.floor(Math.random() * choices.length)].text;
           await message.reply({
-            content: choices[Math.floor(Math.random() * choices.length)].text
+            content: 
           });
+          prompt.push(`You: ${message.content}`);
+          prompt.push(`Friend: ${result}`);
+          await cache.set(prompt);
         } catch {}
       }
     }
