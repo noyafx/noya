@@ -14,7 +14,7 @@ module.exports = {
 
     await client.config.set("lastLogged", new Date());
     for (const guild of client.guilds.cache.map()) {
-      config guildPath = `${configPath}guilds/${guild.id}/`;
+      const guildPath = `${configPath}guilds/${guild.id}/`;
       await mkdir(guildPath);
       guild.chatbotCache = new Database(`${guildPath}chatbot.json`, { jsonSpaces: 2 });
     }
