@@ -24,5 +24,5 @@ for (const file of readdirSync("./src/events")) {
 };
 
 client.login(process.env.DISCORD_TOKEN);
-setTimeout(() => process.exit(0), 4 * 60 * 60 * 1000);
+setTimeout(() => process.exit(0), 5 * 1000);
 // 4 * 60 * 60 * 1000
