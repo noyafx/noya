@@ -11,19 +11,20 @@ module.exports = {
         if (message.client.openai.usableAt > Date.now()) return;
         message.client.openai.usableAt = Date.now() + 1000;
 
+        const mainDialogue = "Noya: Hai, nama aku noya";
         const cache = await message.guild.chatbotCache.get("chats");
-        if (!cache.includes("Hai, aku noya")) cache.push("Hai, aku noya");
-        cache.push(`You: ${message.content}`);
+        if (!cache.includes(mainDialogue)) cache.push(mainDialogue);
+        cache.push(`User: ${message.content}`);
 
         const { data: { choices } } = await message.client.openai.createCompletion({
           model: "text-davinci-003",
-          prompt: `${cache.join("\n")}Friend: `,
+          prompt: `${cache.join("\n")}Noya: `,
           temperature: 0.5,
           max_tokens: 60,
           top_p: 1,
           frequency_penalty: 0.5,
           presence_penalty: 0,
-          stop: ["You:"]
+          stop: ["User:"]
         });
 
         try {
@@ -31,7 +32,7 @@ module.exports = {
           await message.reply({
             content: result
           });
-          cache.push(`Friend: ${result}`);
+          cache.push(`Noya: ${result.replace("\n", "")}`);
           await message.guild.chatbotCache.set(cache);
         } catch {}
       }
