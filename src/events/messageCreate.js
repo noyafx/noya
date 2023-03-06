@@ -31,7 +31,7 @@ module.exports = {
         try {
           const result = choices[Math.floor(Math.random() * choices.length)].text;
           await message.reply({
-            content: 
+            content: result
           });
           prompt.push(`You: ${message.content}`);
           prompt.push(`Friend: ${result}`);
