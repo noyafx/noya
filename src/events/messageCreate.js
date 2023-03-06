@@ -11,8 +11,8 @@ module.exports = {
         if (message.client.openai.usableAt > Date.now()) return;
         message.client.openai.usableAt = Date.now() + 1000;
 
-        const cache = await message.guild.chatbotCache.get("chats");
-        if (!cache) await message.guild.chatbotCache.set("chats", []);
+        let cache = await message.guild.chatbotCache.get("chats");
+        if (!cache) cache = await message.guild.chatbotCache.set("chats", []);
         if (cache.length >= 25) cache.shift();
 
         const prompt = [`Friend: Hai nama ku noya, aku adalah waifu nya kak nael (pdf perjuangan), senang bertemu denganmu, aku cuman bisa bahasa Indonesia, jadi jangan gunakan bahasa lain biar aku ngerti, oke`].concat(cache);
