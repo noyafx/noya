@@ -76,6 +76,6 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - name: Run setup
-      run: npm run workflow
+      run: npm run setup
       env:
         TOKEN: ${{ secrets.GH_PAT }}
