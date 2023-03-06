@@ -16,10 +16,11 @@ module.exports = {
         if (cache.length >= 25) cache.shift();
 
         const prompt = [`Friend: Hai nama ku noya, aku adalah waifu nya kak nael (pdf perjuangan), senang bertemu denganmu, aku cuman bisa bahasa Indonesia, jadi jangan gunakan bahasa lain biar aku ngerti, oke`].concat(cache);
+        prompt.push(`You: ${message.content}\nFriend:`);
 
         const { data: { choices } } = await message.client.openai.createCompletion({
           model: "text-davinci-003",
-          prompt: prompt.push(`You: ${message.content}\nFriend:`).join("\n"),
+          prompt: prompt.join("\n"),
           temperature: 0.5,
           max_tokens: 60,
           top_p: 1,
