@@ -11,16 +11,14 @@ module.exports = {
         if (message.client.openai.usableAt > Date.now()) return;
         message.client.openai.usableAt = Date.now() + 1000;
 
-        let cache = await message.guild.chatbotCache.get("chats");
-        if (!cache) cache = await message.guild.chatbotCache.set("chats", []);
-        if (cache.length >= 25) cache.shift();
+        const cache = await message.guild.chatbotCache.get("chats");
+        if (!cache.includes("Hai, aku noya")) await message.guild.chatbotCache.push("chats", "Hai, aku noya");
+        await message.guild.chatbotCache.push("chats", `You: ${message.content}`);
 
-        const prompt = [`Friend: Hai nama ku noya`].concat(cache);
-        prompt.push(`You: ${message.content}\nFriend:`);
-
+        const texts = await message.guild.chatbotCache.get("chats");
         const { data: { choices } } = await message.client.openai.createCompletion({
           model: "text-davinci-003",
-          prompt: prompt.join("\n"),
+          prompt: `${texts.join("\n")}Friend: `
           temperature: 0.5,
           max_tokens: 60,
           top_p: 1,
@@ -34,9 +32,7 @@ module.exports = {
           await message.reply({
             content: result
           });
-          prompt.push(`You: ${message.content}`);
-          prompt.push(`Friend: ${result}`);
-          await message.guild.chatbotCache.set("chats", prompt);
+          await message.guild.chatbotCache.push("chats", `Friend: ${result}`);
         } catch {}
       }
     }
