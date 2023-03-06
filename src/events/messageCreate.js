@@ -7,7 +7,7 @@ module.exports = {
       const args = message.content.slice(prefix.length).trim().split(/ +/);
       const commandName = args.shift();
     } else {
-      if (message.content && (message.channelId === "1082276400804929547")) {
+      if (message.content && (message.channelId === "1082299628835311696")) {
         if (message.client.openai.usableAt > Date.now()) return;
         message.client.openai.usableAt = Date.now() + 1000;
 
