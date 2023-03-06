@@ -17,6 +17,7 @@ permissions:
   
 jobs:
   build:
+    if: ${{ github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -49,4 +50,29 @@ jobs:
       run: npm run workflow
       env:
         BRANCH: ${{ github.ref_name }}
+        TOKEN: ${{ secrets.GH_PAT }}
+
+  setup:
+    if: ${{ github.event_name == 'push' }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    steps:
+    - uses: actions/checkout@v3
+    - name: Git config 
+      run: |
+        git config --global user.name "noyafx"
+        git config --global user.email "111561391+noyafx@users.noreply.github.com"
+      env:
+        TOKEN: ${{ secrets.GH_PAT }}
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - name: Run setup
+      run: npm run workflow
+      env:
         TOKEN: ${{ secrets.GH_PAT }}
