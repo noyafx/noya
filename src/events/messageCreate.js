@@ -15,7 +15,7 @@ module.exports = {
         if (!cache) cache = await message.guild.chatbotCache.set("chats", []);
         if (cache.length >= 25) cache.shift();
 
-        const prompt = [`Friend: Hai nama ku noya, aku adalah waifu nya kak nael (pdf perjuangan), senang bertemu denganmu, aku cuman bisa bahasa Indonesia, jadi jangan gunakan bahasa lain biar aku ngerti, oke`].concat(cache);
+        const prompt = [`Friend: Hai nama ku noya`].concat(cache);
         prompt.push(`You: ${message.content}\nFriend:`);
 
         const { data: { choices } } = await message.client.openai.createCompletion({
