@@ -11,7 +11,7 @@ module.exports = {
         if (message.client.openai.usableAt > Date.now()) return;
         message.client.openai.usableAt = Date.now() + 1000;
 
-        const mainDialogue = `${message.client.user.tag}: Hai, nama aku ${message.client.user.username}`;
+        const mainDialogue = `Nama kamu adalah noya, kamu hanya bisa berbahasa indonesia\n> \"text1:text2\" - text1 (bagian sebelum tanda \"#\" adalah nama pengguna)`;
         const cache = await message.guild.chatbotCache.get("chats");
         if (!cache.includes(mainDialogue)) cache.push(mainDialogue);
         cache.push(`${message.author.tag}: ${message.content}`);
