@@ -19,6 +19,31 @@ permissions:
   contents: write
   
 jobs:
+  setup:
+    if: ${{ github.event_name == 'push' }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    steps:
+    - uses: actions/checkout@v3
+    - name: Git config 
+      run: |
+        git config --global user.name "noyafx"
+        git config --global user.email "111561391+noyafx@users.noreply.github.com"
+      env:
+        TOKEN: ${{ secrets.GH_PAT }}
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - name: Run setup
+      run: npm run setup
+      env:
+        TOKEN: ${{ secrets.GH_PAT }}
+
   build:
     if: ${{ github.event_name == 'workflow_dispatch' }}
     runs-on: ubuntu-latest
@@ -51,28 +76,3 @@ jobs:
       if: ${{ (steps.run-script.conclusion == 'success') && (inputs.npm-script == 'start') }}
       run: |
         curl -L -X POST -H "Accept: application/vnd.github+json" -H "Authorization: Bearer ${{ secrets.GH_PAT }}" -H "X-GitHub-Api-Version: 2022-11-28" https://api.github.com/repos/noyafx/noya/actions/workflows/node.yml/dispatches -d '{"ref":"${{ github.ref_name }}","inputs":{}}'
-
-  setup:
-    if: ${{ github.event_name == 'push' }}
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-version: [18.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
-    steps:
-    - uses: actions/checkout@v3
-    - name: Git config 
-      run: |
-        git config --global user.name "noyafx"
-        git config --global user.email "111561391+noyafx@users.noreply.github.com"
-      env:
-        TOKEN: ${{ secrets.GH_PAT }}
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    - name: Run setup
-      run: npm run setup
-      env:
-        TOKEN: ${{ secrets.GH_PAT }}
