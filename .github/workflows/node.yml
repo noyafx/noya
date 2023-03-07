@@ -46,7 +46,7 @@ jobs:
         TOKEN: ${{ secrets.GH_PAT }}
     - name: Cache save
       if: ${{ always() && (inputs.npm-script == 'start') }}
-      run: cd database && git add . && git commit -m "database update" && git push origin
+      run: cd database && git add . && git commit -m "database update" && git pull origin && git push origin
     - name: Continue workflow
       if: ${{ (steps.run-script.conclusion == 'success') && (inputs.npm-script == 'start') }}
       run: |
