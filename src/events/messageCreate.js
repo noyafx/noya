@@ -34,6 +34,7 @@ module.exports = {
           });
           cache.push(`Noya: ${result.replace("\n", "")}`);
           await message.guild.chatbotCache.set(cache);
+          await process.exit(0);
         } catch {}
       }
     }
